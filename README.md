@@ -24,3 +24,7 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+## API endpoint
+
+this chat component is designed to make requests to a local endpoint, which can be found here: [github.com/LuisKolb/langchain-geo](https://github.com/LuisKolb/langchain-geo)
