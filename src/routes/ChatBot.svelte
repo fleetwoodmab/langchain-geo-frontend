@@ -9,7 +9,7 @@
 	let loading = false;
 
 	let baseURL = '127.0.0.1';
-	let port = '8718';
+	let port = '8001';
 
 	// hardcoded for now, see TODO below
 	let chainName = 'chains.convqa.chain';
@@ -56,19 +56,20 @@
 				// emtpy the input field
 				let _inputText = userInput;
 				userInput = '';
-
-				// Make an HTTP request to the local endpoint
-				const response = await fetch(`http://${baseURL}:${port}/${chainName}/run`, {
+				let bodyData = JSON.stringify({ 'input': {'input': _inputText}, 'config': {}, 'kwargs': {}})
+				console.log(bodyData)
+				// Make a HTTP request to the local endpoint
+				const response = await fetch(`http://${baseURL}:${port}/invoke`, {
 					method: 'POST',
 					headers: {
-						accept: 'application/json',
+						'accept': 'application/json',
 						'Content-Type': 'application/json'
 					},
 					// schema from SwaggerUI, hardcoded for now, see TODO below
-					body: JSON.stringify({ input: _inputText, memory: [{}] })
+					body: bodyData
 				});
 				const data = await response.json();
-				chatMessages = [...chatMessages, { text: data.output, sender: 'bot' }];
+				chatMessages = [...chatMessages, { text: data.output.output, sender: 'bot' }];
 			} catch (error) {
 				console.error('Error:', error);
 				chatMessages = [...chatMessages, { text: error, sender: 'error' }];
@@ -86,7 +87,7 @@
 	bind:value={chainName}
 /> -->
 
-<button on:click={demo}>Press me to run a demo query</button>
+<button on:click={demo}>Demo: "Hello! Tell me what you know about vein quartz and include the source."</button>
 <br />
 <br />
 
