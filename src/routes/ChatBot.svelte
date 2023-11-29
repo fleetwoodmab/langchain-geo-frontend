@@ -1,9 +1,6 @@
 <script>
 	// import Select from './Select.svelte';
 
-	/**
-	 * @type {any[]}
-	 */
 	let chatMessages = [];
 	let userInput = '';
 	let loading = false;
@@ -11,8 +8,9 @@
 	let baseURL = '127.0.0.1';
 	let port = '8001';
 
-	// hardcoded for now, see TODO below
-	let chainName = 'chains.convqa.chain';
+	// if multiple chains are available, specify which one to use here
+	let chainName = ''
+	// let chainName = 'convqa/';
 
 	async function demo() {
 		userInput = 'Hello! Tell me what you know about vein quartz and include the source.';
@@ -59,14 +57,13 @@
 				let bodyData = JSON.stringify({ 'input': {'input': _inputText}, 'config': {}, 'kwargs': {}})
 				console.log(bodyData)
 				// Make a HTTP request to the local endpoint
-				const response = await fetch(`http://${baseURL}:${port}/invoke`, {
+				const response = await fetch(`http://${baseURL}:${port}/${chainName}invoke`, {
 					method: 'POST',
 					headers: {
 						'accept': 'application/json',
 						'Content-Type': 'application/json'
 					},
-					// schema from SwaggerUI, hardcoded for now, see TODO below
-					body: bodyData
+					body: bodyData // schema can be found in swagger
 				});
 				const data = await response.json();
 				chatMessages = [...chatMessages, { text: data.output.output, sender: 'bot' }];
@@ -79,13 +76,6 @@
 		}
 	}
 </script>
-
-<!-- TODO: add schema to selection, since this depends on the chain... -->
-<!-- <Select
-	options={['chains.convqa.chain', 'chains.example.chain']}
-	display_func={(o) => o}
-	bind:value={chainName}
-/> -->
 
 <button on:click={demo}>Demo: "Hello! Tell me what you know about vein quartz and include the source."</button>
 <br />
