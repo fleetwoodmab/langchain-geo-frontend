@@ -9,8 +9,7 @@
 	let port = '8001';
 
 	// if multiple chains are available, specify which one to use here
-	let chainName = ''
-	// let chainName = 'convqa/';
+	let chainName = 'convqa/';
 
 	async function demo() {
 		userInput = 'Hello! Tell me what you know about vein quartz and include the source.';
@@ -105,8 +104,7 @@
 	.message-container {
 		border: 1px solid #ccc;
 		padding: 10px;
-		min-height: 10vh;
-		max-height: 75vh;
+		height: 80%;
 		overflow-y: scroll;
 	}
 	.message {
@@ -129,7 +127,8 @@
 
 	.user-chatbox {
 		width: 50%;
-		height: 30px;
+		min-height: 30px;
+		max-height: 10%;
 		display: flex;
 		margin: 1rem auto 0 auto;
 		justify-content: space-between;
