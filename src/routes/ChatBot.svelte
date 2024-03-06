@@ -5,8 +5,8 @@
 	let userInput = '';
 	let loading = false;
 
-	let baseURL = '127.0.0.1';
-	let port = '8001';
+	let baseURL = '';
+	let port = '';
 
 	// if multiple chains are available, specify which one to use here
 	let chainName = 'convqa/';
